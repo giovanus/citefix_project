@@ -1,0 +1,120 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}
+Nouvelle plainte
+{%endblock%}
+{%block content%}
+<div class="row g-6">
+    <div class="col-2 col-xl-2"></div>
+    <div class="col-8 col-xl-8">
+        <div class="mb-4">
+            <div class="text-end mb-3">
+                <a href="/mes_plaintes">
+                  <button class="btn btn-primary fs-8">Mes plaintes</button>
+                </a>
+            </div>
+            <div class="mb-6">
+                <h2 class="mb-4">Enregistrement de plainte</h2>
+
+                <form id="geoForm" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-12">
+                            <div class="form-icon-container">
+                                <div class="form-floating">
+                                    <input class="form-control form-icon-input" name="titre" type="text"
+                                        placeholder="Titre" />
+                                    <label class="text-body-tertiary form-icon-label">Titre</label>
+                                </div>
+                                <span class="fa-solid fa-user text-body fs-9 form-icon"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12">
+                            <div class="form-icon-container">
+                                <div class="form-floating">
+                                    <textarea class="form-control form-icon-input" id="info" style="height: 115px;"
+                                        placeholder="Info" name="description"></textarea>
+                                    <label class="text-body-tertiary form-icon-label" for="info">Description</label>
+                                </div><span class="fa-solid fa-circle-info text-body fs-9 form-icon"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12">
+                            <label class="form-label" for="role">Catégorie</label>
+                            <div class="form-icon-container">
+                                <div class="">
+                                    <input class="form-control form-icon-input" name="medias" multiple type="file"
+                                        accept=".png, .jpg, .jpeg, .mp4, .avi, .mov, .mkv"
+                                        placeholder="Photo de profil" />
+                                </div>
+                                <span class="fa-solid fa-file text-body fs-9 form-icon"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <div class="mb-3 text-start">
+                                <label class="form-label" for="role">Categories</label>
+                                <select class="form-select" aria-label="" name="categorie">
+                                    <option></option>
+                                    {%for categorie in categories%}
+                                    <option value="{{categorie.id}}">{{categorie.nom}}</option>
+                                    {%endfor%}
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mb-2 text-center" hidden>
+                        <div class="col-12 col-sm-12 mb-3">
+                            <div class="form-icon-container mb-3" hidden>
+                                <div class="form-floating">
+                                    <input class="form-control form-icon-input" id="latitude" name="latitude"
+                                        readonly />
+                                    <label class="text-body-tertiary form-icon-label">LATITUDE</label>
+                                </div>
+                                <span class="fa-solid fa-map-marker text-body fs-9 form-icon"></span>
+                            </div>
+                            <div class="form-icon-container mb-3" hidden>
+                                <div class="form-floating">
+                                    <input class="form-control form-icon-input" id="longitude" name="longitude"
+                                        readonly />
+                                    <label class="text-body-tertiary form-icon-label">LONGITUDE</label>
+                                </div>
+                                <span class="fa-solid fa-map-marker text-body fs-9 form-icon"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-phoenix-secondary me-2 mt-3" type="reset">Annuler</button>
+                        <button type="button" id="getLocation" class="btn btn-phoenix-primary mt-3">Enregistrer le
+                            lieu</button>
+                    </div>
+                </form>
+
+                <script>
+                    document.getElementById('getLocation').addEventListener('click', function () {
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(
+                                function (position) {
+                                    // Remplir les champs
+                                    document.getElementById('latitude').value = position.coords.latitude;
+                                    document.getElementById('longitude').value = position.coords.longitude;
+
+                                    // Soumettre le formulaire après remplissage
+                                    document.getElementById('geoForm').submit();
+                                },
+                                function (error) {
+                                    alert("🎯 Erreur de géolocalisation: " + error.message);
+                                }
+                            );
+                        } else {
+                            alert("🎯 La géolocalisation n'est pas supportée par votre navigateur");
+                        }
+                    });
+                </script>
+
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

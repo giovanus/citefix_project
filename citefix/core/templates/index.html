@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-navigation-type="default" data-navbar-horizontal-shape="default">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+
+  <!-- ===============================================-->
+  <!--    Document Title-->
+  <!-- ===============================================-->
+  <title>CITEFIX - Accueil</title>
+
+  <!-- ===============================================-->
+  <!--    Favicons-->
+  <!-- ===============================================-->
+  {%include 'skeleton/css.html' %}
+
+</head>
+
+<body class="bg-body-emphasis" style="--phoenix-scroll-margin-top: 1.2rem;">
+  <!-- ===============================================-->
+  <!--    Main Content-->
+  <!-- ===============================================-->
+  <main class="main" id="top">
+    <div class="bg-body-emphasis sticky-top" data-navbar-shadow-on-scroll="data-navbar-shadow-on-scroll">
+      <nav class="navbar navbar-expand-lg container-small px-3 px-lg-7 px-xxl-3"><a
+          class="navbar-brand flex-1 flex-lg-grow-0" href="">
+          <div class="d-flex align-items-center"><img src="{% static 'assets/img/icons/logo__.png' %}" alt="phoenix"
+              width="60" />
+            <h5 class="logo-text ms-2">CITEFIX</h5>
+          </div>
+        </a>
+        <div class="d-lg-none">
+          <div class="theme-control-toggle fa-icon-wait px-2"><input
+              class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme"
+              value="dark" id="themeControlToggleSm" /><label
+              class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggleSm"
+              data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme"
+              style="height:32px;width:32px;"><span class="icon" data-feather="moon"></span></label><label
+              class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggleSm"
+              data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme"
+              style="height:32px;width:32px;"><span class="icon" data-feather="sun"></span></label></div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          </ul>
+          <div class="d-grid d-lg-flex align-items-center">
+            <div class="nav-item d-flex align-items-center d-none d-lg-block pe-2">
+              <div class="theme-control-toggle fa-icon-wait px-2"><input
+                  class="form-check-input ms-0 theme-control-toggle-input" type="checkbox"
+                  data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" />
+                <label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle"
+                  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme"
+                  style="height:32px;width:32px;"><span class="icon" data-feather="moon"></span></label><label
+                  class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle"
+                  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme"
+                  style="height:32px;width:32px;"><span class="icon" data-feather="sun"></span></label>
+              </div>
+            </div><a class="btn btn-link text-body order-1 order-lg-0 ps-4 me-lg-2"
+              href="{% url 'inscription' %}">S'inscrire</a><a class="btn btn-phoenix-primary order-0"
+              href="{% url 'connexion' %}"><span class="fw-bold">Se connecter</span></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <section class="pb-8 overflow-hidden" id="home">
+      <div class="text-center mb-3">
+        {%if error %}
+        <div class="card text-white bg-danger">
+          <div class="card-body">
+            <h4 class="card-title text-white"><span class="fas fa-warning text-body mx-2"></span>Erreur<span
+                class="fas fa-warning text-body mx-2"></span></h4>
+            <p class="card-text text-center">{{error}}</p>
+          </div>
+        </div>
+        {%endif%}
+        {%if success %}
+        <div class="card text-white bg-success">
+          <div class="card-body">
+            <h4 class="card-title text-white"><span class="fas fa-check text-body mx-2"></span>Succès<span
+                class="fas fa-warning text-body mx-2"></span></h4>
+            <p class="card-text text-center">{{success}}</p>
+          </div>
+        </div>
+        {%endif%}
+      </div>
+      <div class="hero-header-container-alternate position-relative">
+        <div class="container-small px-lg-7 px-xxl-3">
+          <div class="row align-items-center">
+            <div class="col-12 col-lg-6 pt-8 pb-6 position-relative z-5 text-center text-lg-start">
+              <h1 class="fs-3 fs-md-2 fs-xl-1 fw-black mb-4"><span
+                  class="text-gradient-info me-3">CITEFIX</span><br />pour nos villes</h1>
+              <p class="mb-5 pe-xl-10">Standard, moderne and élegante solution pour permettre aux citoyens de signaler
+                les problèmes liés aux infrastructures rencontrés. S'inscrire pour profiter des fonctionnalités.</p><a
+                class="btn btn-lg btn-primary rounded-pill me-3" href="{% url 'inscription' %}"
+                role="button">S'inscrire</a>
+            </div>
+            <div class="col-12 col-lg-auto d-none d-lg-block">
+              <div class="hero-image-container position-absolute h-100 end-0 d-flex align-items-center">
+                <div class="position-relative">
+                  <div class="position-absolute end-0 hero-image-container-overlay" style="transform: skewY(-8deg).">
+                  </div><img class="position-absolute end-0 hero-image-container-bg"
+                    src="{% static 'assets/img/bg/bg-36.png' %}" alt="" /><img
+                    class="w-100 d-dark-none rounded-2 hero-image-shadow" src="{% static 'assets/img/bg/8489142.png' %}"
+                    alt="hero-header" /><img class="w-100 d-light-none rounded-2 hero-image-shadow"
+                    src="{% static 'assets/img/bg/8489142.png' %}" alt="hero-header" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-small px-md-8 mb-8 d-lg-none">
+          <div class="position-relative">
+            <div class="position-absolute end-0 hero-image-container-overlay"></div><img
+              class="position-absolute top-50 hero-image-container-bg" src="{% static 'assets/img/bg/bg-39.png' %}"
+              alt="" /><img class="img-fluid ms-auto d-dark-none rounded-2 hero-image-shadow"
+              src="{% static 'assets/img/bg/8489142.png' %}" alt="hero-header" /><img
+              class="img-fluid ms-auto d-light-none rounded-2 hero-image-shadow"
+              src="{% static 'assets/img/bg/8489142.png' %}" alt="hero-header" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================-->
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="pt-13 pb-10" id="feature">
+      <div class="container-small px-lg-7 px-xxl-3">
+        <div class="text-center mb-10 mb-md-5">
+          <h5 class="text-info mb-3">Fonctionnalités</h5>
+          <h2 class="mb-3 lh-base">Enregistrer <br class="d-sm-none" />une plainte.</h2>
+          <p class="mb-0">Une photo, un titre, un légère description et le tout est joué !!!</p>
+          <div class="text-center mt-5"><a class="btn btn-outline-primary" href="#!">See more<span
+                class="fa-solid fa-angle-right ms-2"></span></a></div>
+        </div>
+        <div class="row flex-between-center px-xl-11 mb-10 mb-md-9">
+          <div class="col-md-6 order-1 order-md-0 text-center text-md-start">
+            <h4 class="mb-3">Suivre ses signalements</h4>
+            <p class="mb-5">Voir l'avancement d'un signalement donné.</p>
+          </div>
+          <div class="col-md-5 mb-5 mb-md-0 text-center"><img class="w-75 w-md-100 d-dark-none"
+              src="{% static 'assets/img/spot-illustrations/34.png' %}" alt="" /><img class="w-75 w-md-100 d-light-none"
+              src="{% static 'assets/img/spot-illustrations/34_2.png' %}" alt="" /></div>
+        </div>
+        <div class="row flex-between-center px-xl-11 mb-10 mb-md-9">
+          <div class="col-md-6 order-1 order-md-0 text-center text-md-start">
+            <h4 class="mb-3">Commentez des signalements</h4>
+            <p class="mb-5">Dire ce que vous pensez d'un signalement donné.</p>
+          </div>
+          <div class="col-md-5 mb-5 mb-md-0 text-center"><img class="w-75 w-md-100 d-dark-none"
+              src="{% static 'assets/img/spot-illustrations/35.png' %}" alt="" /><img class="w-75 w-md-100 d-light-none"
+              src="{% static 'assets/img/spot-illustrations/35_2.png' %}" alt="" /></div>
+        </div>
+        <div class="row flex-between-center px-xl-11 false">
+          <div class="col-md-6 order-1 order-md-0 text-center text-md-start">
+            <h4 class="mb-3">Recevoir vos récompenses</h4>
+            <p class="mb-5">Pour vos services rendus, vous pourrez recevoir un payement adéquat.</p>
+          </div>
+          <div class="col-md-5 mb-5 mb-md-0 text-center"><img class="w-75 w-md-100 d-dark-none"
+              src="{% static 'assets/img/spot-illustrations/36.png' %}" alt="" /><img class="w-75 w-md-100 d-light-none"
+              src="{% static 'assets/img/spot-illustrations/36_2.png' %}" alt="" /></div>
+        </div>
+      </div><!-- end of .container-->
+    </section><!-- <section> close ============================-->
+    <!-- ============================================-->
+
+
+
+    <!-- ============================================-->
+
+    <section class="counter-container">
+      <div class="position-absolute start-0 end-0 w-100 counter-overlay" style="transform: skewY(-8deg)"></div>
+      <div class="bg-holder d-none d-lg-block"
+        style="background-image:url({% static 'assets/img/bg/bg-left-25.png' %});background-size:auto;background-position:left center;">
+      </div>
+      <!--/.bg-holder-->
+      <div class="bg-holder d-none d-lg-block"
+        style="background-image:url({% static 'assets/img/bg/bg-right-25.png' %});background-size:auto;background-position:right center;">
+      </div>
+      <!--/.bg-holder-->
+      <div class="container-small position-relative">
+        <div class="row gx-0 gy-8 justify-content-center">
+          <div
+            class="col-sm-6 col-md-auto me-md-5 pe-md-5 border-end-md border-translucent border-dashed text-center order-2 order-md-0">
+            <h1 class="fs-3 fs-lg-1 fw-bolder text-info mb-3"><span>$</span><span
+                data-countup='{"endValue":8976,"duration":5,"suffix":""}'></span></h1>
+            <h4>Revenue</h4>
+          </div>
+          <div
+            class="col-sm-6 col-md-auto me-md-5 pe-md-5 border-end-md border-translucent border-dashed text-center order-1 order-md-0">
+            <h1 class="fs-3 fs-lg-1 fw-bolder text-info mb-3"><span
+                data-countup='{"endValue":308,"duration":10,"suffix":""}'></span><span>K</span></h1>
+            <h4>User</h4>
+          </div>
+          <div class="col-sm-6 col-md-auto me-md-5 pe-md-5 border-end-md border-translucent border-dashed text-center">
+            <h1 class="fs-3 fs-lg-1 fw-bolder text-info mb-3" data-countup='{"endValue":12,"duration":0.5,"suffix":""}'>
+            </h1>
+            <h4>Countries</h4>
+          </div>
+          <div class="col-sm-6 col-md-auto text-center">
+            <h1 class="fs-3 fs-lg-1 fw-bolder text-info mb-3"
+              data-countup='{"endValue":125,"duration":15,"suffix":"+"}'></h1>
+            <h4>Stories</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================-->
+
+    <section class="alternate-landing-team" id="team">
+      <div class="position-absolute w-100 h-100 start-0 end-0 top-0 bg-body dark__bg-gray-1000"
+        style="transform: skewY(-6deg); transform-origin: right"></div>
+      <div class="bg-holder d-none d-xl-block"
+        style="background-image:url({% static 'assets/img/bg/bg-left-23.png' %});background-size:auto;background-position:left center;">
+      </div>
+      <!--/.bg-holder-->
+      <div class="bg-holder d-none d-xl-block"
+        style="background-image:url({% static 'assets/img/bg/bg-right-23.png' %});background-size:auto;background-position:right center;">
+      </div>
+      <!--/.bg-holder-->
+      <div class="text-center mb-11 position-relative">
+        <h5 class="text-info mb-3">Plaintes</h5>
+        <h2 class="mb-2">Les récentes plaintes <br class="d-sm-none" />enregistrées</h2>
+      </div>
+      <div class="container-small position-relative">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-xl-9">
+            <div class="mb-9">
+              {% for plainte in plaintes %}
+              <div class="mb-5">
+                <div class="card mb-4 {{ plainte.statut_css_class }}">
+                  <div class="card-body p-3 p-sm-4">
+                    <div class="border-bottom border-translucent mb-3">
+                      <div class="d-flex align-items-center mb-3">
+                        <a href="{% url 'profil_utilisateur' plainte.auteur.id %}">
+                          <div class="avatar avatar-xl  me-2">
+                            <img class="rounded-circle "
+                              src="{% if plainte.auteur.photo_profil %}{{ plainte.auteur.photo_profil }}{% else %}{% static 'assets/img/team/profil_user.png' %}{% endif %}"
+                              alt="" />
+                          </div>
+                        </a>
+                        <div class="flex-1"><a class="fw-bold mb-0 text-body-emphasis"
+                            href="{% url 'profil_utilisateur' plainte.auteur.id %}">{{plainte.auteur.prenom_nom }}</a>
+                          <p class="fs-10 mb-0 text-body-tertiary text-opacity-85 fw-semibold">{{plainte.since }}
+                            <span class="fa-solid fa-circle text-body-quaternary text-opacity-50"
+                              data-fa-transform="shrink-10 down-2"></span>
+                            {{ plainte.localisation.get_location_name }}
+                            <span class="fa-solid fa-circle text-body-quaternary text-opacity-50"
+                              data-fa-transform="shrink-10 down-2"></span><span
+                              class="fa-solid fa-earth-americas text-body"></span>
+                          </p>
+                        </div>
+                      </div>
+                      <h3 class="text-body-secondary">{{ plainte.titre }}</h3>
+                      <p class="text-body-secondary texte-multiligne" data-texte="{{ plainte.description|escapejs }}">
+                        {{ plainte.description|escapejs }}
+                      </p>
+
+                      <div class="row g-1 mb-5 image-container media-wrapper">
+                        {% for media in plainte.medias %}
+                        {% if media.is_video %}
+                        <div class="col-4 text-center">
+                          <video class="media-equal-size w-100 rounded media-element" controls>
+                            <source src="{{ media.url }}">
+                            Votre navigateur ne supporte pas la vidéo.
+                          </video>
+                        </div>
+                        {% else %}
+                        <div class="col-4 text-center">
+                          <img class="media-equal-size w-100 rounded media-element" src="{{ media.url }}"
+                            alt="media">
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="d-flex">
+                      <button class="btn btn-link text-body p-0 me-3 fs-10 fw-bolder" type="button">
+                        <span class="fa-solid fa-thumbs-up me-1"></span>
+                        {{plainte.nb_likes_str}} Likes
+                      </button>
+                      <button class="btn btn-link text-body p-0 me-3 fs-10 fw-bolder" type="button">
+                        <span class="fa-solid fa-thumbs-down me-1"></span>
+                        {{plainte.nb_dislikes_str}} Dislikes
+                      </button>
+                      <button class="btn btn-link text-body p-0 fs-10 me-3 fw-bolder" type="button">
+                        <span class="fa-solid fa-comment me-1"></span>{{plainte.nb_comments_str}} Commentaires
+                      </button>
+                    </div>
+                  </div>
+                  <div class="bg-body-highlight border-top border-translucent p-3 p-sm-4">
+                    {%if plainte.has_no_comment%}
+                    <div class="row">
+                      <div class="mb-5 col-3"></div>
+                      <div class="mb-5 col-6">
+                        <div class="card mb-4">
+                          <div class="card-body p-3 p-sm-4">
+                            <div class="border-translucent mb-3">
+                              <div class=" mb-3 text-center text-warning">
+                                Aucun commentaire n'a encore été enregistré
+                                <div class="flex-2">
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%else%}
+                    {%for comment in plainte.commentaires%}
+                    <div class="d-flex align-items-start mb-2">
+                      <a href="{%url 'profil_utilisateur' comment.auteur.id%}">
+                        <div class="avatar avatar-m  me-2">
+                          <img class="rounded-circle "
+                            src="{%if comment.auteur.photo_profil %}{{ comment.auteur.photo_profil }} {%else%} {% static 'assets/img/team/profil_user.png' %} {%endif%}"
+                            alt="" />
+                        </div>
+                      </a>
+                      <div class="flex-1">
+                        <div class="d-flex align-items-center"><a class="fw-bold mb-0 text-body-emphasis"
+                            href="{%url 'profil_utilisateur' comment.auteur.id%}">{{comment.auteur.nom_prenom}}</a><span
+                            class="text-body-tertiary text-opacity-85 fw-semibold fs-10 ms-2">{{comment.since}}</span>
+                          {%if user and user.id == comment.auteur.id %}
+                          <a href="comments/{{comment.id}}/delete" class="mx-3">
+                            <button class="btn p-0 text-danger fw-bolder mb-2" type="button"><span
+                                class="fa-solid fa-trash fs-10 me-1"></span><span class="fw-bold fs-10">Supprimer</span>
+                            </button>
+                          </a>
+                          {%endif%}
+                        </div>
+                        <p class="text-body-secondary texte-multiligne mb-0" data-texte="{{ comment.texte|escapejs }}">
+                          {{ comment.texte|escapejs }}
+                        </p>
+
+                      </div>
+                    </div>
+                    {%endfor%}
+                    {%endif%}
+                    {%if user %}
+                    <div class="d-flex align-items-center">
+                      <div class="flex-1">
+                        <form method="post">
+                          {%csrf_token%}
+                          <div class="d-flex col-sm-12 col-xl-12 w-100">
+                            <input class="form-control" type="text" name="plainte_id" hidden readonly
+                              value="{{plainte.id}}" />
+                            <div class="w-100">
+                              <textarea class="form-control form-icon-input" id="info" placeholder="Add comment"
+                                name="commentaire" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mx-1">Commenter</button>
+                          </div>
+
+                        </form>
+                      </div>
+                    </div>
+                    {%else%}
+                    <input class="form-control text-center col-lg-6 col-xl-6" type="text"
+                      value="Connectez-vous pour commenter !!!" readonly />
+                    {%endif%}
+                  </div>
+                </div>
+              </div>
+              {%endfor%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ============================================-->
+
+
+
+    <!-- ============================================-->
+    <!-- <section> begin ============================-->
+    <section class="bg-dark dark__bg-gray-1000" data-bs-theme="dark">
+      <div class="container-small px-lg-7 px-xxl-3">
+        <div class="row gx-xxl-8 gy-5 align-items-center mb-5">
+          <div class="col-xl-auto text-center"><a href="#"><img src="{% static 'assets/img/icons/logo__.png' %}"
+                height="80" alt="" /></a></div>
+          <div class="col-xl-auto flex-1">
+            <ul
+              class="list-unstyled d-flex justify-content-center flex-wrap mb-0 border-end-xl border-dashed gap-3 gap-xl-8 pe-xl-5 pe-xxl-8 w-75 w-md-100 mx-auto">
+              <li><a class="text-light text-opacity-75" href="{% url 'connexion' %}">Se connecter</a></li>
+              <li><a class="text-light text-opacity-75" href="{% url 'inscription' %}">S'inscrire</a></li>
+            </ul>
+          </div>
+          <div class="col-xl-auto">
+            <div class="d-flex align-items-center justify-content-center gap-8">
+              <a class="text-white" href="#!"> <span class="fa-brands fa-facebook"></span></a>
+              <a class="text-white" href="#!"> <span class="fa-brands fa-twitter"></span></a>
+              <a class="text-white" href="#!"> <span class="fa-brands fa-linkedin-in"></span></a>
+            </div>
+          </div>
+        </div>
+        <hr class="border-top" />
+        <div class="d-sm-flex flex-between-center text-center">
+          <p class="text-body-tertiary mb-0">Copyright © CITEFIX</p>
+        </div>
+      </div><!-- end of .container-->
+    </section><!-- <section> close ============================-->
+  </main><!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+
+
+  <!-- ===============================================-->
+  <!--    JavaScripts-->
+  <!-- ===============================================-->
+  {%include 'skeleton/scripts.html' %}
+</body>
+
+
+</html>

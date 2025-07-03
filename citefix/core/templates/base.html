@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-navigation-type="default" data-navbar-horizontal-shape="default">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    
+    <title>CITEFIX - {%block title %} {%endblock%}</title>
+    
+    {%include 'skeleton/css.html' %}
+
+    
+  </head>
+
+  <body class="bg-body-emphasis" style="--phoenix-scroll-margin-top: 1.2rem;">
+    <main class="main" id="top">
+        {%include 'skeleton/nav.html'%}
+        
+        <div class="content">
+            <div class="text-center mb-3">
+                {%if error %}
+                <div class="card text-white bg-danger">
+                    <div class="card-body">
+                        <h4 class="card-title text-white"><span class="fas fa-warning text-body mx-2"></span>Erreur<span class="fas fa-warning text-body mx-2"></span></h4>
+                        <p class="card-text text-center">{{error}}</p>
+                    </div>
+                </div>
+                {%endif%}
+                {%if success %}
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h4 class="card-title text-white"><span class="fas fa-check text-body mx-2"></span>Succès<span class="fas fa-warning text-body mx-2"></span></h4>
+                        <p class="card-text text-center">{{success}}</p>
+                    </div>
+                </div>
+                {%endif%}
+            </div>
+
+            {%block content%}
+            {%endblock%}
+            {%include 'skeleton/footer.html'%}
+        </div>
+    </main>
+    {%include 'skeleton/scripts.html' %}
+  </body>
+
+
+</html>

@@ -1,0 +1,343 @@
+{%load static %}
+<script>
+  var navbarTopShape = window.config.config.phoenixNavbarTopShape;
+  var navbarPosition = window.config.config.phoenixNavbarPosition;
+  var body = document.querySelector('body');
+  var navbarDefault = document.querySelector('#navbarDefault');
+  var navbarTop = document.querySelector('#navbarTop');
+  var topNavSlim = document.querySelector('#topNavSlim');
+  var navbarTopSlim = document.querySelector('#navbarTopSlim');
+  var navbarCombo = document.querySelector('#navbarCombo');
+  var navbarComboSlim = document.querySelector('#navbarComboSlim');
+  var dualNav = document.querySelector('#dualNav');
+
+  var documentElement = document.documentElement;
+  var navbarVertical = document.querySelector('.navbar-vertical');
+
+  if (navbarPosition === 'dual-nav') {
+    topNavSlim?.remove();
+    navbarTop?.remove();
+    navbarTopSlim?.remove();
+    navbarCombo?.remove();
+    navbarComboSlim?.remove();
+    navbarDefault?.remove();
+    navbarVertical?.remove();
+    dualNav.removeAttribute('style');
+    document.documentElement.setAttribute('data-navigation-type', 'dual');
+
+  } else if (navbarTopShape === 'slim' && navbarPosition === 'vertical') {
+    navbarDefault?.remove();
+    navbarTop?.remove();
+    navbarTopSlim?.remove();
+    navbarCombo?.remove();
+    navbarComboSlim?.remove();
+    topNavSlim.style.display = 'block';
+    navbarVertical.style.display = 'inline-block';
+    document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+
+  } else if (navbarTopShape === 'slim' && navbarPosition === 'horizontal') {
+    navbarDefault?.remove();
+    navbarVertical?.remove();
+    navbarTop?.remove();
+    topNavSlim?.remove();
+    navbarCombo?.remove();
+    navbarComboSlim?.remove();
+    dualNav?.remove();
+    navbarTopSlim.removeAttribute('style');
+    document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+  } else if (navbarTopShape === 'slim' && navbarPosition === 'combo') {
+    navbarDefault?.remove();
+    navbarTop?.remove();
+    topNavSlim?.remove();
+    navbarCombo?.remove();
+    navbarTopSlim?.remove();
+    dualNav?.remove();
+    navbarComboSlim.removeAttribute('style');
+    navbarVertical.removeAttribute('style');
+    document.documentElement.setAttribute('data-navbar-horizontal-shape', 'slim');
+  } else if (navbarTopShape === 'default' && navbarPosition === 'horizontal') {
+    navbarDefault?.remove();
+    topNavSlim?.remove();
+    navbarVertical?.remove();
+    navbarTopSlim?.remove();
+    navbarCombo?.remove();
+    navbarComboSlim?.remove();
+    dualNav?.remove();
+    navbarTop.removeAttribute('style');
+    document.documentElement.setAttribute('data-navigation-type', 'horizontal');
+  } else if (navbarTopShape === 'default' && navbarPosition === 'combo') {
+    topNavSlim?.remove();
+    navbarTop?.remove();
+    navbarTopSlim?.remove();
+    navbarDefault?.remove();
+    navbarComboSlim?.remove();
+    dualNav?.remove();
+    navbarCombo.removeAttribute('style');
+    navbarVertical.removeAttribute('style');
+    document.documentElement.setAttribute('data-navigation-type', 'combo');
+  } else {
+    topNavSlim?.remove();
+    navbarTop?.remove();
+    navbarTopSlim?.remove();
+    navbarCombo?.remove();
+    navbarComboSlim?.remove();
+    dualNav?.remove();
+    navbarDefault.removeAttribute('style');
+    navbarVertical.removeAttribute('style');
+  }
+
+  var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
+  var navbarTop = document.querySelector('.navbar-top');
+  if (navbarTopStyle === 'darker') {
+    navbarTop.setAttribute('data-navbar-appearance', 'darker');
+  }
+
+  var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;
+  var navbarVertical = document.querySelector('.navbar-vertical');
+  if (navbarVerticalStyle === 'darker') {
+    navbarVertical.setAttribute('data-navbar-appearance', 'darker');
+  }
+</script>
+
+<script src="{% static 'vendors/popper/popper.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendors/anchorjs/anchor.min.js' %}"></script>
+    <script src="{% static 'vendors/is/is.min.js' %}"></script>
+    <script src="{% static 'vendors/fontawesome/all.min.js' %}"></script>
+    <script src="{% static 'vendors/lodash/lodash.min.js' %}"></script>
+    <script src="{% static 'vendors/list.js/list.min.js' %}"></script>
+    <script src="{% static 'vendors/feather-icons/feather.min.js' %}"></script>
+    <script src="{% static 'vendors/dayjs/dayjs.min.js' %}"></script>
+    <script src="{% static 'assets/js/phoenix.js' %}"></script>
+    <script src="{% static 'vendors/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendors/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendors/isotope-packery/packery-mode.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendors/bigpicture/BigPicture.js' %}"></script>
+    <script src="{% static 'vendors/lottie/lottie.min.js' %}"></script>
+    <script src="{% static 'vendors/countup/countUp.umd.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbaQGvhe7Af-uOMJz68NWHnO34UjjE7Lo&amp;callback=initMap" async></script>
+    <script src="{% static 'custom.js' %}"></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".link-js").forEach(element => {
+      element.addEventListener("click", () => {
+        const url = element.getAttribute("data-url");
+        if (url) {
+          window.location.href = url;
+        } else {
+          console.warn("Aucune URL trouvée dans l'attribut data-url");
+        }
+      });
+    });
+  });
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const target = document.querySelector('.scrollTo');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+</script>
+
+<script>
+  window.addEventListener('load', () => {
+    const images = document.querySelectorAll('.image-align');
+    if (images.length === 0) return;
+
+    // On attend que toutes les images soient chargées
+    let loadedCount = 0;
+    images.forEach(img => {
+      if (img.complete) {
+        loadedCount++;
+      } else {
+        img.onload = () => {
+          loadedCount++;
+          if (loadedCount === images.length) adjustHeights();
+        };
+      }
+    });
+
+    if (loadedCount === images.length) {
+      adjustHeights();
+    }
+
+    function adjustHeights() {
+      const minHeight = Math.min(...Array.from(images).map(img => img.offsetHeight));
+      images.forEach(img => {
+        img.style.height = `${minHeight}px`;
+        img.style.objectFit = "cover";
+      });
+    }
+  });
+</script>
+
+<script>
+  function setMinHeightToImagesIn(container) {
+    const images = container.querySelectorAll('.img-equal-size');
+    if (images.length === 0) return;
+
+    images.forEach(img => img.style.height = 'auto');
+
+    const minHeight = Math.min(...Array.from(images).map(img =>
+      img.getBoundingClientRect().height
+    ));
+
+    images.forEach(img => {
+      img.style.height = `${minHeight}px`;
+      img.style.width = 'auto';
+      img.style.maxWidth = '100%';
+    });
+  }
+  function resizeAllImageGroups() {
+    document.querySelectorAll('.image-container').forEach(container => {
+      setMinHeightToImagesIn(container);
+    });
+  }
+
+  // Appeler au chargement
+  window.addEventListener('load', resizeAllImageGroups);
+  // Et au redimensionnement
+  window.addEventListener('resize', resizeAllImageGroups);
+
+
+</script>
+
+<script>
+  document.querySelectorAll('.texte-multiligne').forEach(el => {
+    let texte = el.dataset.texte;
+
+    // 1. Convertir tous les \uXXXX en vrais caractères
+    texte = texte.replace(/\\u[\dA-F]{4}/gi, function(match) {
+      return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+    });
+
+    // 2. Gérer les retours à la ligne
+    texte = texte.replace(/\\r\\n|\\n|\\r/g, '\n');
+
+    // 3. Affichage
+    el.innerText = texte;
+  });
+
+</script>
+
+<script>
+  function setMinHeightToMediaIn(container) {
+    const medias = container.querySelectorAll('.media-equal-size');
+    if (medias.length === 0) return;
+
+    // Reset heights
+    medias.forEach(media => media.style.height = 'auto');
+
+    // Une fois tous les médias chargés (images/vidéos), on égalise les hauteurs
+    Promise.all(Array.from(medias).map(media => {
+      return new Promise(resolve => {
+        if (media.tagName.toLowerCase() === 'img') {
+          if (media.complete) resolve();
+          else media.onload = resolve;
+        } else if (media.tagName.toLowerCase() === 'video') {
+          media.onloadedmetadata = resolve;
+        } else {
+          resolve();
+        }
+      });
+    })).then(() => {
+      const minHeight = Math.min(...Array.from(medias).map(m =>
+        m.getBoundingClientRect().height
+      ));
+
+      medias.forEach(m => {
+        m.style.height = `${minHeight}px`;
+        m.style.width = 'auto';
+        m.style.maxWidth = '100%';
+      });
+    });
+  }
+
+  // Application à tous les groupes de médias
+  function resizeAllMediaGroups() {
+    document.querySelectorAll('.image-container').forEach(container => {
+      setMinHeightToMediaIn(container);
+    });
+  }
+
+  window.addEventListener('load', resizeAllMediaGroups);
+  window.addEventListener('resize', resizeAllMediaGroups);
+
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentUrl = new URL(window.location.href);
+    const currentPath = currentUrl.pathname;
+    
+    document.querySelectorAll('a[href]').forEach(link => {
+        try {
+            const linkUrl = new URL(link.href, window.location.origin);
+            
+            // Ignorer si:
+            // 1. C'est une ancre (#)
+            // 2. C'est un lien JavaScript
+            // 3. Le domaine est différent
+            if (linkUrl.hash || 
+                linkUrl.href.startsWith('javascript:') || 
+                linkUrl.origin !== currentUrl.origin) {
+                return;
+            }
+            
+            // Comparer les chemins
+            if (linkUrl.pathname === currentPath) {
+                link.classList.add('active');
+            }
+            
+        } catch (e) {
+        }
+    });
+
+    const container = document.querySelector('.shortest-child-height');
+    const children = Array.from(container.children);
+
+    if (children.length > 0) {
+    const minHeight = Math.min(...children.map(el => el.offsetHeight));
+    container.style.height = `${minHeight}px`;
+    }
+
+});
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const lastMsg = document.querySelector('.last-msg');
+        if (lastMsg) {
+            lastMsg.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("textMessage");
+
+        input.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                const value = input.value.trim();
+
+                if (value !== "") {
+                    input.form.submit();
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const element = document.querySelector('.clickSelf');
+        if (element) {
+            element.click();
+        }
+    });
+</script>
+
+

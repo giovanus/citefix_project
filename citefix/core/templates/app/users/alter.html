@@ -1,0 +1,66 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}
+Modification utilisateur
+{%endblock%}
+{%block content%}
+<div class="container">
+        <div class="row flex-center min-vh-100 py-5">
+          <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3">
+            <div class="text-center mb-7">
+                <h3 class="text-body-highlight">Modification utilisateur</h3>
+            </div>
+            <form method="post">
+                {%csrf_token%}
+                <div class="mb-3 text-start">
+                    <label class="form-label" for="nom">Nom</label>
+                    <div class="form-icon-container">
+                        <input class="form-control form-icon-input" type="text" placeholder="NOM" name="nom" value="{{utilisateur.nom}}" />
+                        <span class="fas fa-user text-body fs-9 form-icon"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label class="form-label" for="prenom">Prénoms</label>
+                    <div class="form-icon-container">
+                        <input class="form-control form-icon-input" type="text" placeholder="Prénoms" name="prenom" value="{{utilisateur.prenom}}"/>
+                        <span class="fas fa-user text-body fs-9 form-icon"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label class="form-label" for="telephone">Téléphone</label>
+                    <div class="form-icon-container">
+                        <input class="form-control form-icon-input" type="tel" placeholder="01XXXXXXXX" name="telephone" value="{{utilisateur.telephone}}"/>
+                        <span class="fas fa-phone text-body fs-9 form-icon"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label class="form-label" for="role">Rôle</label>
+                    <select class="form-select" aria-label="" name="role">
+                        <option selected="">Faites le choix du rôle</option>
+                        {%for role in roles%}
+                        <option value="{{role}}" {%if utilisateur.role == role%} selected {%endif%}>{{role}}</option>
+                        {%endfor%}
+                    </select>
+                    
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label class="form-label" for="email">Email</label>
+                    <div class="form-icon-container">
+                        <input class="form-control form-icon-input" name="email" type="email" placeholder="name@example.com" name="email" value="{{utilisateur.email}}"/>
+                        <span class="fas fa-user text-body fs-9 form-icon"></span>
+                    </div>
+                </div>
+
+                <div class="row flex-between-center mb-7">
+                <a href="{%url 'users' %}" class="btn btn-secondary mb-3 col-5">Abandonner</a><button class="btn btn-warning col-5 mb-3" type="submit">Modifier</button>
+                </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+{%endblock%}

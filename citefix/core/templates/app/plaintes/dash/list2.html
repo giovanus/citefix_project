@@ -1,0 +1,97 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}
+Plaintes ♠ {{titre}}
+{%endblock%}
+{%block content%}
+<div class="mb-9">
+          <div class="row g-2 mb-4">
+            <div class="col-auto">
+              <h2 class="mb-0">Plaintes</h2>
+            </div>
+          </div>
+          
+          <div id="products" data-list='{"valueNames":["titre","user","categorie","statut","localisation","date-creation"],"page":10,"pagination":true}'>
+            <div class="mb-4">
+              <div class="row g-3">
+                <div class="col-auto">
+                  <div class="search-box">
+                    <form class="position-relative"><input class="form-control search-input search" type="search" placeholder="Recherche..." aria-label="Search" />
+                      <span class="fas fa-search search-box-icon"></span>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-auto scrollbar overflow-hidden-y flex-grow-1">
+                  
+                </div>
+                <div class="col-auto">
+                    
+                </div>
+              </div>
+            </div>
+            <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
+              <div class="table-responsive scrollbar-overlay mx-n1 px-1">
+                <table class="table table-sm fs-9 mb-0">
+                  <thead>
+                    <tr>
+                        <th class="sort align-middle pe-5 text-upper" scope="col" data-sort="user" style="width:15%;">Utilisateur</th>
+                        <th class="sort align-middle pe-5 text-upper" scope="col" data-sort="titre" style="width:20%;">Titre</th>
+                      <th class="sort align-middle pe-5 text-upper" scope="col" data-sort="categorie" style="width:20%;">Catégorie</th>
+                      <th class="sort align-middle text-end text-upper" scope="col" data-sort="statut" style="width:10%">Statut</th>
+                      <th class="sort align-middle text-center ps-3 text-upper" scope="col" data-sort="localisation" style="width:5%">Localisation</th>
+                      <th class="sort align-middle ps-7 text-upper" scope="col" data-sort="date-creation" style="width:10%;">Date de création</th>
+                      <th class="sort align-middle text-end pe-0 text-upper" scope="col" data-sort="last-order" style="width:10%;min-width: 150px;">actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="list" id="customers-table-body">
+                    {%for p in plaintes%}
+                    <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                        
+                        {%if p.auteur.photo_profil%}
+                        <td class="user align-middle white-space-nowrap pe-5"><a class="d-flex align-items-center text-body-emphasis" href="{%url 'profil_utilisateur' p.auteur.id %}">
+                            <div class="avatar avatar-m"><img class="rounded-circle" src="{{p.auteur.photo_profil}}" alt="" /></div>
+                            </a></td>
+                            {%else%}
+                            <td class="user align-middle white-space-nowrap pe-5"><a class="d-flex align-items-center text-body-emphasis" href="{%url 'profil_utilisateur' p.auteur.id %}">
+                            <div class="avatar avatar-m">
+                                <div class="avatar-name rounded-circle"><span>{{p.auteur.initiales}}</span></div>
+                            </div>
+                            </a>
+                        </td>
+                        {%endif%}
+                        <td class="email align-middle white-space-nowrap pe-5 fw-semibold"><a href="{%url 'view_plainte' p.id %}">{{p.titre}}</td>
+
+                      <td class="email align-middle white-space-nowrap pe-5 fw-bold">{{p.categorie_str}}</td>
+                      <td class="total-spent align-middle white-space-nowrap text-center text-body-emphasis"><p class="badge badge-phoenix {{p.statut_css_class}} text-center">{{p.statut}}</p></td>
+                      <td class="total-orders align-middle white-space-nowrap fw-semibold text-end text-body-highlight">{{p.localisation}}</td>
+                      
+                      <td class="city align-middle white-space-nowrap text-body-highlight ps-7">{{p.since}}</td>
+                      
+                      <td class="last-order align-middle white-space-nowrap text-body-tertiary text-end">
+                        {%if p.is_just_affect%}
+                        <a href="{%url 'turn_into_intervention' p.id %}"><button type="button" class="fas fa-tools btn btn-phoenix btn-primary p-1 mx-1"></button>Débuter l'intervention</a>
+                        {%endif%}
+                        {%if p.is_on_intervention%}
+                        <a href="{%url 'turn_into_intervention_end' p.id %}"><button type="button" class="fas fa-tools btn btn-phoenix btn-success p-1 mx-1"></button>Achever l'intervention</a>
+                        {%endif%}
+                        {%if p.is_at_intervention_end%}
+                        <button type="button" class="fas fa-door-closed btn btn-phoenix btn-secondary p-1 mx-1">Fin d'intervention</button>
+                        {%endif%}
+                    </td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+              </div>
+              <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">
+                <div class="col-auto d-flex">
+                  <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p><a class="fw-semibold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semibold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+                </div>
+                <div class="col-auto d-flex"><button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                  <ul class="mb-0 pagination"></ul><button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{%endblock%}

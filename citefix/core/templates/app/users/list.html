@@ -1,0 +1,99 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}
+Utilisateurs
+{%endblock%}
+{%block content%}
+<div class="mb-9">
+          <div class="row g-2 mb-4">
+            <div class="col-auto">
+              <h2 class="mb-0">Utilisateurs</h2>
+            </div>
+          </div>
+          <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
+            <li class="nav-item"><a class="nav-link" aria-current="page" href="{%url 'users' %}"><span>All </span><span class="text-body-tertiary fw-semibold">({{counters.all}})</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="{%url 'users_citoyens' %}"><span>CITOYENS </span><span class="text-body-tertiary fw-semibold">({{counters.citoyens}})</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="{%url 'users_autorites' %}"><span>AUTORITES </span><span class="text-body-tertiary fw-semibold">({{counters.autorites}})</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="{%url 'users_techniciens' %}"><span>TECHNICIENS </span><span class="text-body-tertiary fw-semibold">({{counters.techniciens}})</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="{%url 'users_admin' %}"><span>ADMINS </span><span class="text-body-tertiary fw-semibold">({{counters.admin}})</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="{%url 'users_sys' %}"><span>SYS </span><span class="text-body-tertiary fw-semibold">({{counters.sys}})</span></a></li>
+          </ul>
+          <div id="products" data-list='{"valueNames":["user","email","total-orders","total-spent","city","last-seen","last-order"],"page":10,"pagination":true}'>
+            <div class="mb-4">
+              <div class="row g-3">
+                <div class="col-auto">
+                  <div class="search-box">
+                    <form class="position-relative"><input class="form-control search-input search" type="search" placeholder="Recherche..." aria-label="Search" />
+                      <span class="fas fa-search search-box-icon"></span>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-auto scrollbar overflow-hidden-y flex-grow-1">
+                  
+                </div>
+                <div class="col-auto">
+                    <a href="{%url 'add_user' %}"><button class="btn btn-primary"><span class="fas fa-plus me-2"></span>Nouvel utilisateur</button></a>
+                </div>
+              </div>
+            </div>
+            <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
+              <div class="table-responsive scrollbar-overlay mx-n1 px-1">
+                <table class="table table-sm fs-9 mb-0">
+                  <thead>
+                    <tr>
+                      <th class="sort align-middle pe-5 text-upper" scope="col" data-sort="user" style="width:5%;"><span class="fa fa-camera"></span></th>
+                      <th class="sort align-middle pe-5 text-upper" scope="col" data-sort="email" style="width:20%;">Email</th>
+                      <th class="sort align-middle text-end text-upper" scope="col" data-sort="total-orders" style="width:10%">nom & prénom</th>
+                      <th class="sort align-middle text-center ps-3 text-upper" scope="col" data-sort="total-spent" style="width:5%">rôle</th>
+                      <th class="sort align-middle ps-7 text-upper" scope="col" data-sort="city" style="width:10%;">Date de naissance</th>
+                      <th class="sort align-middle text-end text-upper" scope="col" data-sort="last-seen" style="width:15%;">LAST SEEN</th>
+                      <th class="sort align-middle text-end pe-0 text-upper" scope="col" data-sort="last-order" style="width:10%;min-width: 150px;">actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="list" id="customers-table-body">
+                    {%for u in users%}
+                    <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                        {%if u.photo_profil%}
+                      <td class="user align-middle white-space-nowrap pe-5"><a class="d-flex align-items-center text-body-emphasis" href="{%url 'profil_utilisateur' u.id %}">
+                          <div class="avatar avatar-m"><img class="rounded-circle" src="{{u.photo_profil}}" alt="" /></div>
+                        </a></td>
+                        {%else%}
+                        <td class="user align-middle white-space-nowrap pe-5"><a class="d-flex align-items-center text-body-emphasis" href="{%url 'profil_utilisateur' u.id %}">
+                          <div class="avatar avatar-m">
+                            <div class="avatar-name rounded-circle"><span>{{u.initiales}}</span></div>
+                          </div>
+                        </a>
+                    </td>
+                    {%endif%}
+
+                      <td class="email align-middle white-space-nowrap pe-5"><a class="fw-semibold" href="#">{{u.email}}</a></td>
+                      <td class="total-orders align-middle white-space-nowrap fw-semibold text-end text-body-highlight">{{u.nom_prenom}}</td>
+                      <td class="total-spent align-middle white-space-nowrap text-center text-body-emphasis"><p class="badge badge-phoenix {{u.role_css_class}} text-center">{{u.role}}</p></td>
+                      <td class="city align-middle white-space-nowrap text-body-highlight ps-7">{{u.date_naissance_str3}}</td>
+                      <td class="last-seen align-middle white-space-nowrap text-body-tertiary text-end">{{u.date_inscription_since}}</td>
+                      <td class="last-order align-middle white-space-nowrap text-body-tertiary text-end">
+                        {%if not u.is_sys%}
+                        <a href="{%url 'alter_user' u.id %}"><button type="button" class="fa fa-pencil btn btn-phoenix btn-warning p-1 mx-2"></button></a>
+                        <a href="{%url 'delete_user' u.id %}"><button type="button" class="fa fa-trash btn btn-phoenix btn-danger p-1"></button></a>
+                        {%else%}
+                        <button type="button" class="fa fa-pencil btn btn-phoenix btn-warning p-1 mx-2"></button>
+                        <button type="button" class="fa fa-trash btn btn-phoenix btn-danger p-1"></button>
+                        {%endif%}
+                    </td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+              </div>
+              <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">
+                <div class="col-auto d-flex">
+                  <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p><a class="fw-semibold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semibold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+                </div>
+                <div class="col-auto d-flex"><button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                  <ul class="mb-0 pagination"></ul><button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{%endblock%}

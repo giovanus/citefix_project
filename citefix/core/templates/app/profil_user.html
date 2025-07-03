@@ -1,0 +1,238 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}
+Profil ♠ ({{utilisateur.prenom_nom}})
+{%endblock%}
+{%block content%}
+<div class="pb-9">
+    <div class="card mb-5">
+        <div class="card-header d-flex justify-content-center align-items-end position-relative mb-7 mb-xxl-0"
+            style="min-height: 214px; ">
+            <div class="hover-actions-trigger position-static">
+                <div class="bg-holder rounded-top"
+                    style="background-image:url({%static 'assets/img/generic/cover-photo.png' %});"></div>
+                <!--/.bg-holder-->
+            </div>
+            <div class="hoverbox feed-profile" style="width: 150px; height: 150px">
+                <div class="position-relative bg-body-quaternary rounded-circle d-flex flex-center mb-xxl-7">
+                    <div class="avatar avatar-5xl"><img
+                            class="rounded-circle rounded-circle img-thumbnail shadow-sm border-0"
+                            src="{%if utilisateur.photo_profil %}{{ utilisateur.photo_profil }} {%else%} {% static 'assets/img/team/profil_user.png' %} {%endif%}"
+                            alt="" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-xl-between">
+                <div class="col-auto">
+                    <div class="d-flex flex-wrap mb-3 align-items-center">
+                        <h2 class="me-2">{{utilisateur.nom_prenom}}</h2><span
+                            class="fw-semibold fs-7 text-body-emphasis">({{utilisateur.role}})</span>
+                    </div>
+                    <div class="mb-5">
+                        <div class="d-md-flex align-items-center">
+                            <div class="d-flex align-items-center"><span
+                                    class="fa-solid fa-check-circle fs-9 text-body-tertiary me-2 me-lg-1 me-xl-2"></span><a
+                                    class="text-body-emphasis" href="#!"><span
+                                        class="fs-7 fw-bold text-body-tertiary text-opacity-85 text-body-emphasis-hover">{{utilisateur.nb_plaintes}}
+                                        <span class="fw-semibold ms-1 me-4">Plaintes</span></span></a></div>
+
+                        </div>
+                    </div>
+                    {%if utilisateur.bio %}
+                    <p class="fs-6 text-body-secondary">“{{utilisateur.bio}}”</p>
+                    {%endif%}
+                </div>
+                <div class="col-auto">
+                    <div class="row g-2">
+                        <div class="col-auto order-xxl-1">
+                            <a href="{%url 'chat_user' utilisateur.id %}">
+                                <button class="btn btn-primary lh-1">
+                                    <span class="fa-solid fa-message me-2"></span>Message
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row gy-3 gx-5 gx-xxl-6">
+        <div class="col-xl-4 d-none d-xl-block">
+            <div class="mb-8">
+                <div class="row g-0">
+                    <div class="col-6 border-1 border-bottom border-translucent border-end py-2"> <a
+                            class="btn btn-link ps-2 fs-8 text-body-secondary text-primary-hover fw-semibold d-flex flex-column d-xxl-inline-block"
+                            href="#!"><span class="fa-solid fa-check-circle me-2 mb-2 mb-xxl-0"></span>Plaintes</a>
+                    </div>
+                    <div class="col-6 border-1 border-bottom border-translucent py-2"><a
+                            class="btn btn-link fs-8 text-body-secondary text-primary-hover fw-semibold d-flex flex-column d-xxl-inline-block"
+                            href="#!"><span class="fa-solid fa-money-check me-2 mb-2 mb-xxl-0"></span>Commissions</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-8">
+            <div class="mb-9">
+        {% for plainte in utilisateur.plaintes_rev %}
+        <div class="mb-5">
+                <div class="card mb-4 {{ plainte.statut_css_class }}">
+                  <div class="card-body p-3 p-sm-4">
+                    <div class="border-bottom border-translucent mb-3">
+                      <div class="d-flex align-items-center mb-3">
+                        <a href="{% url 'profil_utilisateur' plainte.auteur.id %}">
+                          <div class="avatar avatar-xl  me-2">
+                            <img class="rounded-circle "
+                              src="{% if plainte.auteur.photo_profil %}{{ plainte.auteur.photo_profil }}{% else %}{% static 'assets/img/team/profil_user.png' %}{% endif %}"
+                              alt="" />
+                          </div>
+                        </a>
+                        <div class="flex-1"><a class="fw-bold mb-0 text-body-emphasis"
+                            href="{% url 'profil_utilisateur' plainte.auteur.id %}">{{plainte.auteur.prenom_nom }}</a>
+                          <p class="fs-10 mb-0 text-body-tertiary text-opacity-85 fw-semibold">{{plainte.since }}
+                            <span class="fa-solid fa-circle text-body-quaternary text-opacity-50"
+                              data-fa-transform="shrink-10 down-2"></span>
+                            {{ plainte.localisation.get_location_name }}
+                            <span class="fa-solid fa-circle text-body-quaternary text-opacity-50"
+                              data-fa-transform="shrink-10 down-2"></span><span
+                              class="fa-solid fa-earth-americas text-body"></span>
+                          </p>
+                        </div>
+                      </div>
+                      <h3 class="text-body-secondary">{{ plainte.titre }}</h3>
+                      <p class="text-body-secondary texte-multiligne" data-texte="{{ plainte.description|escapejs }}">
+                        {{ plainte.description|escapejs }}
+                      </p>
+
+                      <div class="row g-1 mb-5 image-container media-wrapper">
+                        {% for media in plainte.medias %}
+                        {% if media.is_video %}
+                        <div class="col-4 text-center">
+                          <video class="media-equal-size w-100 rounded media-element" controls>
+                            <source src="{{ media.url }}">
+                            Votre navigateur ne supporte pas la vidéo.
+                          </video>
+                        </div>
+                        {% else %}
+                        <div class="col-4 text-center">
+                          <img class="media-equal-size w-100 rounded media-element" src="{{ media.url }}"
+                            alt="media">
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="d-flex">
+                      <button class="btn btn-link text-body p-0 me-3 fs-10 fw-bolder" type="button">
+                        <span class="fa-solid fa-thumbs-up me-1"></span>
+                        {{plainte.nb_likes_str}} Likes
+                      </button>
+                      <button class="btn btn-link text-body p-0 me-3 fs-10 fw-bolder" type="button">
+                        <span class="fa-solid fa-thumbs-down me-1"></span>
+                        {{plainte.nb_dislikes_str}} Dislikes
+                      </button>
+                      <button class="btn btn-link text-body p-0 fs-10 me-3 fw-bolder" type="button">
+                        <span class="fa-solid fa-comment me-1"></span>{{plainte.nb_comments_str}} Commentaires
+                      </button>
+                    </div>
+                  </div>
+                  <div class="bg-body-highlight border-top border-translucent p-3 p-sm-4">
+                    {%if plainte.has_no_comment%}
+                    <div class="row">
+                      <div class="mb-5 col-3"></div>
+                      <div class="mb-5 col-6">
+                        <div class="card mb-4">
+                          <div class="card-body p-3 p-sm-4">
+                            <div class="border-translucent mb-3">
+                              <div class=" mb-3 text-center text-warning">
+                                Aucun commentaire n'a encore été enregistré
+                                <div class="flex-2">
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%else%}
+                    {%for comment in plainte.commentaires%}
+                    <div class="d-flex align-items-start mb-2">
+                      <a href="{%url 'profil_utilisateur' comment.auteur.id%}">
+                        <div class="avatar avatar-m  me-2">
+                          <img class="rounded-circle "
+                            src="{%if comment.auteur.photo_profil %}{{ comment.auteur.photo_profil }} {%else%} {% static 'assets/img/team/profil_user.png' %} {%endif%}"
+                            alt="" />
+                        </div>
+                      </a>
+                      <div class="flex-1">
+                        <div class="d-flex align-items-center"><a class="fw-bold mb-0 text-body-emphasis"
+                            href="{%url 'profil_utilisateur' comment.auteur.id%}">{{comment.auteur.nom_prenom}}</a><span
+                            class="text-body-tertiary text-opacity-85 fw-semibold fs-10 ms-2">{{comment.since}}</span>
+                          {%if user and user.id == comment.auteur.id %}
+                          <a href="/comments/{{comment.id}}/delete3/{{utilisateur.id}}" class="mx-3">
+                            <button class="btn p-0 text-danger fw-bolder mb-2" type="button"><span
+                                class="fa-solid fa-trash fs-10 me-1"></span><span class="fw-bold fs-10">Supprimer</span>
+                            </button>
+                          </a>
+                          {%endif%}
+                        </div>
+                        <p class="text-body-secondary texte-multiligne mb-0" data-texte="{{ comment.texte|escapejs }}">
+                          {{ comment.texte|escapejs }}
+                        </p>
+
+                      </div>
+                    </div>
+                    {%endfor%}
+                    {%endif%}
+                    {%if user %}
+                    <div class="d-flex align-items-center">
+                      <div class="flex-1">
+                        <form method="post">
+                          {%csrf_token%}
+                          <div class="d-flex col-sm-12 col-xl-12 w-100">
+                            <input class="form-control" type="text" name="plainte_id" hidden readonly
+                              value="{{plainte.id}}" />
+                            <div class="w-100">
+                              <textarea class="form-control form-icon-input" id="info" placeholder="Add comment"
+                                name="commentaire" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mx-1">Commenter</button>
+                          </div>
+
+                        </form>
+                      </div>
+                    </div>
+                    {%else%}
+                    <input class="form-control text-center col-lg-6 col-xl-6" type="text"
+                      value="Connectez-vous pour commenter !!!" readonly />
+                    {%endif%}
+                  </div>
+                </div>
+              </div>
+        {% endfor %}
+        {%if utilisateur.has_no_plaintes%}
+        <div class="row">
+          <div class="mb-5 col-3"></div>
+          <div class="mb-5 col-6">
+            <div class="card mb-4">
+              <div class="card-body p-3 p-sm-4">
+                <div class="border-translucent mb-3">
+                  <div class=" mb-3 text-center text-warning">
+                    Aucune plainte n'a encore été enregistrée
+                    <div class="flex-2">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {%endif%}
+      </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
