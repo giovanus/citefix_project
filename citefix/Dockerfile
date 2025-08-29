@@ -18,7 +18,6 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput
 
-EXPOSE 8000
 
 # Commande de démarrage
-CMD ["gunicorn", "citefix.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "citefix.wsgi:application", "--bind", "0.0.0.0:$PORT"]
